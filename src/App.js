@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import LoginForm from './components/loginForm'
+import SignUpForm from './components/signupForm'
+import {
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useRouteMatch,
+  useHistory
+} from "react-router-dom"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <Switch>
+        <Route path = "/signup">
+        <SignUpForm/>
+        </Route>
+        <Route path = "/login">
+        <LoginForm/>
+        </Route>
+        <Route path = "/feed">
+        <div>this page will be the feed</div>
+        </Route>
+        <Route path = "/">
+        <div> go to /login or /signup in the url (development) </div>
+        </Route>
+    </Switch>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
