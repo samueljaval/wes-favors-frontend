@@ -9,6 +9,10 @@ import {
   Redirect,Link
 } from "react-router-dom"
 
+
+///////////////////////////////////////////
+// checking should be done in the backend,
+// this section of code should be moved to the backend 
 const checkStringForNumbers = (input) => {
     let str = String(input);
     for( let i = 0; i < str.length; i++){
@@ -27,6 +31,7 @@ const hasLowerCase = (str) => {
 const passCheck = (input) => {
     return checkStringForNumbers(input) && hasLowerCase(input) && input.length >= 8
 }
+/////////////////////////////////////////
 
 const SignUpForm = () => {
     const dispatch = useDispatch()
