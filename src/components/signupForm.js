@@ -12,25 +12,25 @@ import {
 
 ///////////////////////////////////////////
 // checking should be done in the backend,
-// this section of code should be moved to the backend 
-const checkStringForNumbers = (input) => {
-    let str = String(input);
-    for( let i = 0; i < str.length; i++){
-              console.log(str.charAt(i));
-        if(!isNaN(str.charAt(i))){           //if the string is a number, do the following
-            return true;
-        }
-    }
-    return false
-}
-
-const hasLowerCase = (str) => {
-    return (/[a-z]/.test(str)) && (/[A-Z]/.test(str))
-}
-
-const passCheck = (input) => {
-    return checkStringForNumbers(input) && hasLowerCase(input) && input.length >= 8
-}
+// this section of code should be moved to the backend
+// const checkStringForNumbers = (input) => {
+//     let str = String(input);
+//     for( let i = 0; i < str.length; i++){
+//               console.log(str.charAt(i));
+//         if(!isNaN(str.charAt(i))){           //if the string is a number, do the following
+//             return true;
+//         }
+//     }
+//     return false
+// }
+//
+// const hasLowerCase = (str) => {
+//     return (/[a-z]/.test(str)) && (/[A-Z]/.test(str))
+// }
+//
+// const passCheck = (input) => {
+//     return checkStringForNumbers(input) && hasLowerCase(input) && input.length >= 8
+// }
 /////////////////////////////////////////
 
 const SignUpForm = () => {
@@ -45,7 +45,7 @@ const SignUpForm = () => {
 	const handleSignup = async (event) => {
 		event.preventDefault()
 		try {
-            if (password === confirmPassword && passCheck(password) ) {
+            if (password === confirmPassword) {
                 await signupService.signup({name, username, password})
     			const user = await loginService.login({ username, password })
                 // not a good way of staying logged in
