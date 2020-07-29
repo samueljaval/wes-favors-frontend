@@ -4,10 +4,6 @@ import SignUpForm from './components/signupForm'
 import {
   Switch,
   Route,
-  Link,
-  Redirect,
-  useRouteMatch,
-  useHistory
 } from "react-router-dom"
 
 const App = () => {
