@@ -1,6 +1,7 @@
 import React from 'react'
 import LoginForm from './components/loginForm'
 import SignUpForm from './components/signupForm'
+import Feed from './components/feed'
 import {
   Switch,
   Route,
@@ -17,7 +18,7 @@ const App = () => {
         <LoginForm/>
         </Route>
         <Route path = "/feed">
-        <div>this page will be the feed</div>
+        <Feed/>
         </Route>
         <Route path = "/">
         <div> go to /login or /signup in the url (development) </div>
