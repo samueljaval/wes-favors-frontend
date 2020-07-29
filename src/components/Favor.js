@@ -32,7 +32,7 @@ const Favor = (props) => {
             <div>Details : {favor.details}</div>
             <div> Posted : {favor.posted_date_time}</div>
             <div> Price : {favor.price ? `${favor.price}$`  : "no price"}</div>
-            <button onClick={accept}>accept favor</button>
+            <button onClick={accept}>I will do it!</button>
             {favor.accepted ? <div>someone has already accepted this favor</div> : <></>}
             <br></br><br></br>
         </div>
