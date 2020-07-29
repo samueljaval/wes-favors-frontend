@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from '@material-ui/core/Button'
 import axios from 'axios'
+import Favor from './Favor'
 
 
 const Feed = () => {
 
+    // this hard coded token is just for testing
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMjE2Y2Y0ODA2ODZhNmZlYzQ1ZTdkMSIsImlhdCI6MTU5NjAzNTAzOH0.xMcJ0Cxw38bgjmPzhtTS0qYGplhMCMZTWhEa50KKUT8"
     // const token = useSelector(store => store.user.token)
 
@@ -43,13 +45,7 @@ const Feed = () => {
         <div>
         <div style={title}>WES FAVORS</div>
         <div style={{position :'absolute',top:'15%'}}>
-        {favors ? favors.map(favor => <div key={favor.id}>
-                                        Title : {favor.title}
-                                        <div>Details : {favor.details}</div>
-                                        <div> Posted : {favor.posted_date_time}</div>
-                                        <div> Price : {favor.price ? `${favor.price}$`  : "no price"}</div>
-                                        <p></p>
-                                      </div>) : <></>}
+        {favors ? favors.map(favor => <Favor key={favor.id} favor={favor}/>) : <></>}
         </div>
         </div>
     )
