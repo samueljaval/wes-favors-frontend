@@ -27,7 +27,6 @@ const useStyles = makeStyles({
 
 const Favor = (props) => {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
     // const user = useSelector(store => store.user.token)
     // this hard coded token is just for testing
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMjE2Y2Y0ODA2ODZhNmZlYzQ1ZTdkMSIsImlhdCI6MTU5NjAzNTAzOH0.xMcJ0Cxw38bgjmPzhtTS0qYGplhMCMZTWhEa50KKUT8"
