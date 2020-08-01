@@ -10,6 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
+import ResponsiveDrawer from './Drawer'
 import {
   Redirect,Link
 } from "react-router-dom"
@@ -53,13 +54,9 @@ const Feed = () => {
         <div className={classes.paper}>
         <Avatar className={classes.avatar}>W</Avatar>
           <Typography component="h1" variant="h4">
-            WESFAVORS
+            All Categories
           </Typography>
         <div>
-        <br></br>
-        <Button style={{color:"red", fontWeight: "bold"}} onClick={() => setPosting(true)} variant="contained"
-        size="small">Post A Favor</Button>
-        <br></br><br></br>
         {favors ? favors.map(favor => <Favor key={favor.id} favor={favor}/>) : <></>}
         </div>
         </div>

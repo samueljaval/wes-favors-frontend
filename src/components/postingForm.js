@@ -35,7 +35,6 @@ const Posting = () => {
     const [price, setPrice] = useState(null)
     const [expires, setExpires] = useState(null)
     const [location, setLocation] = useState(null)
-    const [done, setDone] = useState(false)
     const [msg, setMsg] = useState(null)
     const [exp, setExp] = useState(false)
     const [free, setFree] = useState(false)
@@ -75,7 +74,7 @@ const Posting = () => {
         // need to find a way to keep user logged in here, maybe user cookies
         // what the course did was not good practice and apparently not safe
         if (response.status === 201) {
-            setDone(true)
+            setMsg("Favor succesfully posted")
         }
         else {setMsg(response.data.error)}
     }
@@ -83,7 +82,6 @@ const Posting = () => {
     const classes = useStyles()
     return (
         <div>
-        {done ? <Redirect to = "/feed"/> : <></>}
         {msg ?  <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
           <strong>{msg}</strong>
@@ -193,14 +191,6 @@ const Posting = () => {
                 Post Favor
               </Button>
             </form>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={() => setDone(true)}
-            >
-              Cancel
-            </Button>
             <br></br><br></br><br></br><br></br>
           </div>
         </Container>

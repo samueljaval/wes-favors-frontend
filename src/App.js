@@ -3,6 +3,7 @@ import LoginForm from './components/loginForm'
 import SignUpForm from './components/signupForm'
 import Feed from './components/feed'
 import PostingForm from './components/postingForm'
+import Drawer from './components/Drawer'
 import {
   Switch,
   Route,
@@ -18,8 +19,8 @@ const App = () => {
         <Route path = "/login">
         <LoginForm/>
         </Route>
-        <Route path = "/feed">
-        <Feed/>
+        <Route path = "/main">
+        <Drawer/>
         </Route>
         <Route path = "/posting">
         <PostingForm/>
