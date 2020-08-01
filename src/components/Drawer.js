@@ -165,7 +165,7 @@ function ResponsiveDrawer(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {showing === 'all' ? <Feed/> : <></>}
-        {showing === 'post' ? <PostingForm/> : <></>}
+        {showing === 'post' ? <PostingForm setShowing={setShowing}/> : <></>}
       </main>
     </div>
   );

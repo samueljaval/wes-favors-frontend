@@ -14,6 +14,7 @@ import Container from '@material-ui/core/Container'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Slide from '@material-ui/core/Slide';
 import DateFnsUtils from '@date-io/date-fns';
 import postingService from '../services/posting'
 import {
@@ -28,8 +29,13 @@ import {
 
 
 
-const Posting = () => {
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
+const Posting = (props) => {
+
+    const [open, setOpen] = React.useState(false);
     const [title, setTitle] = useState(null)
     const [details, setDetails] = useState(null)
     const [price, setPrice] = useState(null)
@@ -63,6 +69,14 @@ const Posting = () => {
         if (exp) setExpires(date)
     }
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+  const handleClose = () => {
+      setOpen(false);
+    };
+
     const handlePosting = async (event) => {
         event.preventDefault()
 
@@ -74,7 +88,7 @@ const Posting = () => {
         // need to find a way to keep user logged in here, maybe user cookies
         // what the course did was not good practice and apparently not safe
         if (response.status === 201) {
-            setMsg("Favor succesfully posted")
+            props.setShowing('all')
         }
         else {setMsg(response.data.error)}
     }

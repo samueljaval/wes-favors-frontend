@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "darkred",
   },
   form: {
-    width: '100%', 
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -86,7 +86,7 @@ const LoginForm = () => {
 
   return (
       <div>
-      {done ? <Redirect to = "/feed"/> : <></>}
+      {done ? <Redirect to = "/main"/> : <></>}
       {msg ?  <Alert severity="error">
         <AlertTitle>Error</AlertTitle>
         <strong>{msg}</strong>

@@ -57,7 +57,7 @@ const Feed = () => {
             All Categories
           </Typography>
         <div>
-        {favors ? favors.map(favor => <Favor key={favor.id} favor={favor}/>) : <></>}
+        {favors ? favors.map(favor => <Favor key={favor.id} favor={favor}/>).reverse() : <></>}
         </div>
         </div>
         </Container>
