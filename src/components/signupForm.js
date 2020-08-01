@@ -10,14 +10,16 @@ import { makeStyles } from '@material-ui/core/styles'
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
 import Container from '@material-ui/core/Container'
 import { Alert, AlertTitle } from '@material-ui/lab'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import {
   Redirect,Link
 } from "react-router-dom"
 
 
 const SignUpForm = () => {
-
-
 
     const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
@@ -40,21 +42,27 @@ const SignUpForm = () => {
     //     return () => window.removeEventListener("resize", updateWidthAndHeight);
     // })
 
-
+    console.log(Class)
     const useStyles = makeStyles((theme) => ({
       paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(3),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       },
       avatar: {
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: "darkred"//theme.palette.secondary.main,
       },
       form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
+      },
+      formControl: {
+          marginTop: theme.spacing(2),
+          marginBottom:theme.spacing(1),
+          margin: theme.spacing(0),
+          width: '97%'
       },
       submit: {
         margin: theme.spacing(3, 0, 2),
@@ -116,7 +124,7 @@ const SignUpForm = () => {
                 margin="normal"
                 required
                 fullWidth
-                label="Email"
+                label="Email (@wesleyan.edu only)"
                 id="email"
                 onChange={({ target }) => setEmail(target.value)}
               />
@@ -140,15 +148,26 @@ const SignUpForm = () => {
                 id="cpassword"
                 onChange={({ target }) => setConfirmPassword(target.value)}
               />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                label="Class"
-                id="Class"
-                onChange={({ target }) => setClass(target.value)}
-              />
+              <Grid container>
+                <Grid item xs>
+                  <FormControl variant="outlined" className={classes.formControl}>
+                        <InputLabel>Class</InputLabel>
+                        <Select
+                          value={Class}
+                          onChange={({ target }) => setClass(target.value)}
+                          label="Class"
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value={2021}>2021</MenuItem>
+                          <MenuItem value={2022}>2022</MenuItem>
+                          <MenuItem value={2023}>2023</MenuItem>
+                          <MenuItem value={2024}>2024</MenuItem>
+                        </Select>
+                  </FormControl>
+              </Grid>
+              <Grid item>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -159,6 +178,8 @@ const SignUpForm = () => {
                 id="phone"
                 onChange={({ target }) => setPhone(target.value)}
               />
+              </Grid>
+             </Grid>
               <Button
                 type="submit"
                 fullWidth
