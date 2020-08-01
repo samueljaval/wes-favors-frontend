@@ -64,7 +64,7 @@ const Feed = () => {
             </Grid>
         </Grid>
         <div>
-        {favors ? favors.filter(favor => favor.accepted).reverse().map(favor => <Favor key={favor.id} favor={favor}/>) : <></>}
+        {favors ? favors.filter(favor => !favor.accepted).reverse().map(favor => <Favor key={favor.id} favor={favor}/>) : <></>}
         </div>
         </div>
         </Container>
