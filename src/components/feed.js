@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Button from '@material-ui/core/Button'
 import axios from 'axios'
 import Favor from './Favor'
-
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
+import Typography from '@material-ui/core/Typography'
+import Avatar from '@material-ui/core/Avatar'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/styles'
+import {
+  Redirect,Link
+} from "react-router-dom"
 
 const Feed = () => {
 
@@ -20,33 +29,41 @@ const Feed = () => {
       }, [])
 
     const [favors, setFavors] = useState()
+    const [posting, setPosting] = useState(false)
 
-    const [width, setWidth] = React.useState(window.innerWidth)
-    const [height, setHeight] = React.useState(window.innerHeight)
-    const updateWidthAndHeight = () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    }
-    React.useEffect(() => {
-        window.addEventListener("resize", updateWidthAndHeight);
-        return () => window.removeEventListener("resize", updateWidthAndHeight);
-    })
+    const useStyles = makeStyles((theme) => ({
+      paper: {
+        marginTop: theme.spacing(3),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: "darkred",
+    }}))
 
-    const title = {
-        position: 'absolute',
-        left: '50%',
-        top: '6%',
-        fontSize: (height+width)/40,
-        transform: 'translate(-50%, -50%)',
-        color : 'darkred'
-    }
+    const classes = useStyles()
 
     return (
         <div>
-        <div style={title}>WES FAVORS</div>
-        <div style={{position :'absolute',top:'15%'}}>
+        <Container component="main" >
+        <CssBaseline />
+        {posting ? <Redirect to = "/posting"/> : <></>}
+        <div className={classes.paper}>
+        <Avatar className={classes.avatar}>W</Avatar>
+          <Typography component="h1" variant="h4">
+            WESFAVORS
+          </Typography>
+        <div>
+        <br></br>
+        <Button style={{color:"red", fontWeight: "bold"}} onClick={() => setPosting(true)} variant="contained"
+        size="small">Post A Favor</Button>
+        <br></br><br></br>
         {favors ? favors.map(favor => <Favor key={favor.id} favor={favor}/>) : <></>}
         </div>
+        </div>
+        </Container>
         </div>
     )
 }

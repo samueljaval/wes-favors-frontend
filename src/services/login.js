@@ -7,6 +7,7 @@ const login = async credentials => {
 		return response
 	}
 	catch (error) {
+		if (!error.response) return {data : {error : "we have had on problem on the server side"}}
 		console.log(error.response)
 		return error.response
 	}
@@ -18,6 +19,7 @@ const verify = async credentials => {
 		return response
 	}
 	catch (error) {
+		if (!error.response) return {data : {error : "we have had on problem on the server side"}}
 		console.log(error.response)
 		return error.response
 	}
@@ -25,12 +27,12 @@ const verify = async credentials => {
 
 
 const resend = async email => {
-	console.log(email)
 	try {
 		const response = await axios.post(baseUrl + '/resendToken', {email})
 		return response
 	}
 	catch (error) {
+		if (!error.response) return {data : {error : "we have had on problem on the server side"}}
 		console.log(error.response)
 		return error.response
 	}
