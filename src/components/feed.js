@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button'
 import axios from 'axios'
 import Favor from './Favor'
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -35,12 +36,12 @@ const Feed = () => {
     const useStyles = makeStyles((theme) => ({
       paper: {
         marginTop: theme.spacing(3),
-        display: 'flex',
+        // display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
     avatar: {
-      margin: theme.spacing(1),
+      // margin: theme.spacing(1),
       backgroundColor: "darkred",
     }}))
 
@@ -48,16 +49,22 @@ const Feed = () => {
 
     return (
         <div>
-        <Container component="main" >
+        <Container component="main">
         <CssBaseline />
         {posting ? <Redirect to = "/posting"/> : <></>}
         <div className={classes.paper}>
-        <Avatar className={classes.avatar}>W</Avatar>
-          <Typography component="h1" variant="h4">
-            All Categories
-          </Typography>
+        <Grid container spacing={1}>
+            <Grid item>
+            <Avatar className={classes.avatar}><ListAltIcon/></Avatar>
+            </Grid>
+            <Grid item>
+            <Typography component="h2" variant="h5">
+              ALL CATEGORIES
+            </Typography>
+            </Grid>
+        </Grid>
         <div>
-        {favors ? favors.map(favor => <Favor key={favor.id} favor={favor}/>).reverse() : <></>}
+        {favors ? favors.filter(favor => favor.accepted).reverse().map(favor => <Favor key={favor.id} favor={favor}/>) : <></>}
         </div>
         </div>
         </Container>

@@ -4,9 +4,19 @@ import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import Avatar from '@material-ui/core/Avatar'
+import Grid from '@material-ui/core/Grid'
 import PostingForm from './postingForm'
 import Hidden from '@material-ui/core/Hidden';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import IconButton from '@material-ui/core/IconButton';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import SchoolIcon from '@material-ui/icons/School';
+import PanoramaFishEyeIcon from '@material-ui/icons/PanoramaFishEye';
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,6 +24,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -45,6 +56,11 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  avatar: {
+    // margin: theme.spacing(1),
+    color:"black",
+    backgroundColor: "white",
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(0),
@@ -68,43 +84,55 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
           <ListItem button onClick={()=>setShowing('post')} key={"Post Favor"}>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
-            <ListItemText primary={"Post Favor"} />
+            <ListItemIcon><PostAddIcon /></ListItemIcon>
+            <ListItemText primary={"Post a Favor"} />
           </ListItem>
 
       <Divider />
 
           <ListItem button onClick={()=>console.log("e")} key={"My Account"}>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+            <ListItemIcon><AccountBoxIcon/></ListItemIcon>
             <ListItemText primary={"My Account"} />
           </ListItem>
 
       <Divider />
 
           <ListItem button onClick={()=>setShowing('all')} key={"All Categories"}>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+            <ListItemIcon><ListAltIcon /></ListItemIcon>
             <ListItemText primary={"All Categories"} />
           </ListItem>
 
 
           <ListItem button onClick={()=>console.log("e")} key={"Rides"}>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+            <ListItemIcon><DriveEtaIcon /></ListItemIcon>
             <ListItemText primary={"Rides"} />
           </ListItem>
 
           <ListItem button onClick={()=>console.log("e")} key={"Academics"}>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+            <ListItemIcon><SchoolIcon /></ListItemIcon>
             <ListItemText primary={"Academics"} />
           </ListItem>
 
           <ListItem button onClick={()=>console.log("e")} key={"Errands"}>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+            <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
             <ListItemText primary={"Errands"} />
           </ListItem>
 
           <ListItem button onClick={()=>console.log("e")} key={"COVID Related"}>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+            <ListItemIcon><AccessibilityIcon /></ListItemIcon>
             <ListItemText primary={"COVID Related"} />
+          </ListItem>
+
+          <ListItem button onClick={()=>console.log("e")} key={"Random"}>
+            <ListItemIcon><PanoramaFishEyeIcon/></ListItemIcon>
+            <ListItemText primary={"Random"} />
+          </ListItem>
+
+          <Divider />
+
+          <ListItem button onClick={()=>console.log("e")} key={"Help/About"}>
+            <ListItemIcon><HelpOutlineIcon/></ListItemIcon>
+            <ListItemText primary={"Help/About"} />
           </ListItem>
       </List>
       </div>
@@ -126,7 +154,7 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography style ={{fontWeight: 'bold'}} variant="h4" noWrap>
                WESFAVORS
           </Typography>
         </Toolbar>

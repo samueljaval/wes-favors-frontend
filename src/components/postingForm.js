@@ -27,15 +27,8 @@ import {
   Redirect,Link
 } from "react-router-dom"
 
-
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
 const Posting = (props) => {
 
-    const [open, setOpen] = React.useState(false);
     const [title, setTitle] = useState(null)
     const [details, setDetails] = useState(null)
     const [price, setPrice] = useState(null)
@@ -69,14 +62,6 @@ const Posting = (props) => {
         if (exp) setExpires(date)
     }
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-  const handleClose = () => {
-      setOpen(false);
-    };
-
     const handlePosting = async (event) => {
         event.preventDefault()
 
@@ -103,7 +88,7 @@ const Posting = (props) => {
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
-            <Avatar className={classes.avatar}>W</Avatar>
+            <Avatar className={classes.avatar}><PostAddIcon/></Avatar>
             <Typography component="h1" variant="h4">
               Posting a Favor
             </Typography>
