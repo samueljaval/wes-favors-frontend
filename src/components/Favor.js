@@ -69,13 +69,14 @@ const Favor = (props) => {
             </Typography>
               <Typography variant="body2" className={classes.pos} color="textSecondary">
                 Details : {favor.details} <br/>
+                {favor.price ? `Offer : ${favor.price}$` : <></>}
+                {favor.price ? <br/> : <></>}
                 Posted : {favor.posted_date_time} <br/>
-                Price : {favor.price ? `${favor.price}$`  : "no price"} <br/>
                 {favor.expiration_date_time ? `Expiration : ${favor.expiration_date_time}`  : <></>}
               </Typography>
              <br/>
-            <Button style={{color:"red"}} onClick={handleClickOpen} variant="contained"
-            size="small">I can do it</Button>
+            {props.showButton ? <Button style={{color:"red"}} onClick={handleClickOpen} variant="contained"
+            size="small">I can do it</Button> : <></>}
             <Dialog
                 open={open}
                 TransitionComponent={Transition}

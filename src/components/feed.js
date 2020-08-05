@@ -16,8 +16,7 @@ import {
   Redirect,Link
 } from "react-router-dom"
 
-const Feed = () => {
-
+const Feed = ({category}) => {
     // this hard coded token is just for testing
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMjE2Y2Y0ODA2ODZhNmZlYzQ1ZTdkMSIsImlhdCI6MTU5NjAzNTAzOH0.xMcJ0Cxw38bgjmPzhtTS0qYGplhMCMZTWhEa50KKUT8"
     // const token = useSelector(store => store.user.token)
@@ -35,7 +34,7 @@ const Feed = () => {
 
     const useStyles = makeStyles((theme) => ({
       paper: {
-        marginTop: theme.spacing(3),
+        marginTop: theme.spacing(2),
         // display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -59,12 +58,28 @@ const Feed = () => {
             </Grid>
             <Grid item>
             <Typography component="h2" variant="h5">
-              ALL CATEGORIES
+              {category ? category.toUpperCase(): "ALL CATEGORIES"}
             </Typography>
             </Grid>
         </Grid>
         <div>
-        {favors ? favors.filter(favor => !favor.accepted).reverse().map(favor => <Favor key={favor.id} favor={favor}/>) : <></>}
+        {favors ? (category && category !== "Completed") ?
+                    favors
+                        .filter(favor => !favor.accepted).reverse()
+                        .filter(favor => favor.category === category)
+                        .map(favor => <Favor showButton={true} key={favor.id} favor={favor}/>)
+                    :
+                    (
+                        (category === "Completed") ?
+                        favors
+                            .filter(favor => favor.accepted).reverse()
+                            .map(favor => <Favor showButton={false} key={favor.id} favor={favor}/>)
+                        :
+                        favors
+                            .filter(favor => !favor.accepted).reverse()
+                            .map(favor => <Favor showButton={true} key={favor.id} favor={favor}/>)
+                    )
+                    : <></>}
         </div>
         </div>
         </Container>

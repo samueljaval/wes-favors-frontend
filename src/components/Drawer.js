@@ -1,4 +1,4 @@
-import React ,{ useState }from 'react';
+import React ,{ useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
+import DoneIcon from '@material-ui/icons/Done';
 import PostingForm from './postingForm'
 import Hidden from '@material-ui/core/Hidden';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -73,7 +74,6 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [showing, setShowing] = useState('all')
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -97,40 +97,47 @@ function ResponsiveDrawer(props) {
 
       <Divider />
 
-          <ListItem button onClick={()=>setShowing('all')} key={"All Categories"}>
+          <ListItem button onClick={()=>setShowing("all")} key={"All Categories"}>
             <ListItemIcon><ListAltIcon /></ListItemIcon>
             <ListItemText primary={"All Categories"} />
           </ListItem>
 
 
-          <ListItem button onClick={()=>console.log("e")} key={"Rides"}>
+          <ListItem button onClick={()=>setShowing("rides")} key={"Rides"}>
             <ListItemIcon><DriveEtaIcon /></ListItemIcon>
             <ListItemText primary={"Rides"} />
           </ListItem>
 
-          <ListItem button onClick={()=>console.log("e")} key={"Academics"}>
+          <ListItem button onClick={()=>setShowing("academics")} key={"Academics"}>
             <ListItemIcon><SchoolIcon /></ListItemIcon>
             <ListItemText primary={"Academics"} />
           </ListItem>
 
-          <ListItem button onClick={()=>console.log("e")} key={"Errands"}>
+          <ListItem button onClick={()=>setShowing("errands")} key={"Errands"}>
             <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
             <ListItemText primary={"Errands"} />
           </ListItem>
 
-          <ListItem button onClick={()=>console.log("e")} key={"COVID Related"}>
+          <ListItem button onClick={()=>setShowing("covid")} key={"COVID Related"}>
             <ListItemIcon><AccessibilityIcon /></ListItemIcon>
             <ListItemText primary={"COVID Related"} />
           </ListItem>
 
-          <ListItem button onClick={()=>console.log("e")} key={"Random"}>
+          <ListItem button onClick={()=>setShowing("random")} key={"Random"}>
             <ListItemIcon><PanoramaFishEyeIcon/></ListItemIcon>
             <ListItemText primary={"Random"} />
           </ListItem>
 
           <Divider />
 
-          <ListItem button onClick={()=>console.log("e")} key={"Help/About"}>
+          <ListItem button onClick={()=>setShowing("completed")} key={"Completed"}>
+            <ListItemIcon><DoneIcon/></ListItemIcon>
+            <ListItemText primary={"Completed Favors"} />
+          </ListItem>
+
+          <Divider />
+
+          <ListItem button onClick={()=>setShowing("help")} key={"Help/About"}>
             <ListItemIcon><HelpOutlineIcon/></ListItemIcon>
             <ListItemText primary={"Help/About"} />
           </ListItem>
@@ -154,7 +161,7 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography style ={{fontWeight: 'bold'}} variant="h4" noWrap>
+          <Typography style={{fontWeight: 'bold', flex:1 }} variant="h4" noWrap>
                WESFAVORS
           </Typography>
         </Toolbar>
@@ -192,8 +199,15 @@ function ResponsiveDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {showing === 'all' ? <Feed/> : <></>}
+        {showing === "all" ? <Feed category={null}/> : <></>}
+        {showing === "rides" ? <Feed category={"Rides"}/> : <></>}
+        {showing === "errands" ? <Feed category={"Errands"}/> : <></>}
+        {showing === "covid" ? <Feed category={"COVID Related"}/> : <></>}
+        {showing === "academics" ? <Feed category={"Academics"}/> : <></>}
+        {showing === "random" ? <Feed category={"Random"}/> : <></>}
+        {showing === "completed" ? <Feed category={"Completed"}/> : <></>}
         {showing === 'post' ? <PostingForm setShowing={setShowing}/> : <></>}
+        {showing === 'help' ? <div>this is the help/about section</div> : <></>}
       </main>
     </div>
   );

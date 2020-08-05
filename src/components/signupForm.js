@@ -10,10 +10,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
 import Container from '@material-ui/core/Container'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
 import {
   Redirect,Link
 } from "react-router-dom"
@@ -34,12 +34,12 @@ const SignUpForm = () => {
     // const [width, setWidth] = React.useState(window.innerWidth)
     // const [height, setHeight] = React.useState(window.innerHeight)
     // const updateWidthAndHeight = () => {
-    //   setWidth(window.innerWidth);
-    //   setHeight(window.innerHeight);
+    //   setWidth(window.innerWidth)
+    //   setHeight(window.innerHeight)
     // }
     // React.useEffect(() => {
-    //     window.addEventListener("resize", updateWidthAndHeight);
-    //     return () => window.removeEventListener("resize", updateWidthAndHeight);
+    //     window.addEventListener("resize", updateWidthAndHeight)
+    //     return () => window.removeEventListener("resize", updateWidthAndHeight)
     // })
 
     console.log(Class)
@@ -197,7 +197,7 @@ const SignUpForm = () => {
                 </Grid>
               </Grid>
             </form>
-            <br></br><br></br><br></br><br></br>
+            <br></br>
           </div>
         </Container>
         </div>
