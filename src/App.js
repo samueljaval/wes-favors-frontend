@@ -4,6 +4,7 @@ import SignUpForm from './components/signupForm'
 import Feed from './components/feed'
 import PostingForm from './components/postingForm'
 import Drawer from './components/Drawer'
+import Google from './components/googleLogin'
 import {
   Switch,
   Route,
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <div>
     <Switch>
+
         <Route path = "/signup">
         <SignUpForm/>
         </Route>
@@ -26,7 +28,7 @@ const App = () => {
         <PostingForm/>
         </Route>
         <Route path = "/">
-        <div> go to /login or /signup in the url (development) </div>
+        <Google/>
         </Route>
     </Switch>
     </div>
