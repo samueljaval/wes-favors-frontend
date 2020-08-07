@@ -1,33 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import AppBar from '@material-ui/core/AppBar';
 import axios from 'axios'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import PropTypes from 'prop-types';
 import SendIcon from '@material-ui/icons/Send';
 import ForumIcon from '@material-ui/icons/Forum';
-import Container from '@material-ui/core/Container'
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
-import Grid from '@material-ui/core/Grid'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
+import Notif from './Notif'
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
 import DoneIcon from '@material-ui/icons/Done';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
-
-
-const CLIENT_ID = '626183638213-kr4tf348snk6v6sjm8bdl562hel7kfcd.apps.googleusercontent.com'
+const CLIENT_ID = process.env.REACT_APP_CLIENT
 
 const Google = () => {
+
+    const [msg, setMsg] = useState(null)
 
     const useStyles = makeStyles((theme) => ({
       paper: {
@@ -48,15 +42,17 @@ const Google = () => {
     const classes = useStyles()
 
     const responseGoogle = (response) => {
-      console.log(response)
-      axios
-        .post("http://localhost:3001/api/googleLogin"
-                , {tokenId : response.tokenId})
-        .then(response => console.log(response))
+      if (response.getBasicProfile().getEmail().includes('@wesleyan.edu')){
+          axios
+            .post("http://localhost:3001/api/googleLogin"
+                    , {tokenId : response.tokenId})
+      }
+      else setMsg({msg :"please use a wesleyan.edu google account", severity:"error"})
     }
 
     return (
         <div>
+        {msg ? <Notif message={msg.msg} severity={msg.severity} setMessage={setMsg}/> : <></>}
         <AppBar style={{ backgroundColor: 'darkred' }} position="fixed" className={classes.appBar}>
           <Toolbar>
           <Typography style={{fontWeight: 'bold', flex:1 }} variant="h4" noWrap>

@@ -4,8 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
-import Avatar from '@material-ui/core/Avatar'
-import Grid from '@material-ui/core/Grid'
 import DoneIcon from '@material-ui/icons/Done';
 import PostingForm from './postingForm'
 import Hidden from '@material-ui/core/Hidden';
@@ -18,12 +16,10 @@ import SchoolIcon from '@material-ui/icons/School';
 import PanoramaFishEyeIcon from '@material-ui/icons/PanoramaFishEye';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Google from './googleLogin'
 import PostAddIcon from '@material-ui/icons/PostAdd';
@@ -202,7 +198,7 @@ console.log(showing)
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {logged ? (showing === 'post' ? <PostingForm/> : <Feed category={showing}/>)
+        {logged ? (showing === 'post' ? <PostingForm setShowing={setShowing}/> : <Feed category={showing}/>)
                 : <Google/> }
       </main>
     </div>

@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import signupService from '../services/signup'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import axios from 'axios'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import PostAddIcon from '@material-ui/icons/PostAdd';
@@ -12,14 +10,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Notif from './Notif'
 import { makeStyles } from '@material-ui/core/styles'
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
 import Container from '@material-ui/core/Container'
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Slide from '@material-ui/core/Slide';
 import DateFnsUtils from '@date-io/date-fns';
 import postingService from '../services/posting'
 import {
@@ -28,9 +24,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Checkbox from '@material-ui/core/Checkbox';
-import {
-  Redirect,Link
-} from "react-router-dom"
+
 
 const Posting = (props) => {
 
@@ -77,7 +71,8 @@ const Posting = (props) => {
     }
 
     const goodPrice = (price) => {
-        return price.split(",").join("")
+        if (price) return price.split(",").join("")
+        else return null
     }
 
 
@@ -92,7 +87,7 @@ const Posting = (props) => {
         // need to find a way to keep user logged in here, maybe user cookies
         // what the course did was not good practice and apparently not safe
         if (response.status === 201) {
-            props.setShowing('all')
+            props.setShowing(null)
         }
         else {setMsg(response.data.error)}
     }
@@ -100,10 +95,7 @@ const Posting = (props) => {
     const classes = useStyles()
     return (
         <div>
-        {msg ?  <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          <strong>{msg}</strong>
-        </Alert> : <></>}
+        {msg ?  <Notif setMessage = {setMsg} message={msg} severity="error"/> : <></>}
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>

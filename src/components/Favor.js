@@ -3,10 +3,6 @@ import axios from 'axios'
 import Paper from '@material-ui/core/Paper';
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import Grid from '@material-ui/core/Grid';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
@@ -15,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import Notif from './Notif'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,9 +31,10 @@ const Favor = (props) => {
     const classes = useStyles();
     // const token = useSelector(store => store.user.token)
     // this hard coded token is just for testing
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMjE2Y2Y0ODA2ODZhNmZlYzQ1ZTdkMSIsImlhdCI6MTU5NjAzNTAzOH0.xMcJ0Cxw38bgjmPzhtTS0qYGplhMCMZTWhEa50KKUT8"
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMmRjOTI5MjdhNGMwMmYyOTBiMzI0OCIsImlhdCI6MTU5NjgzNjEzN30.C8dDJfxKa4tdQjkANxUhuiOfyDVEp2FQ1VBCP1ado_4"
     const favor = props.favor
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false)
+    const [msg, setMsg] = React.useState(null)
 
     const handleClickOpen = () => {
     setOpen(true);
@@ -49,20 +47,21 @@ const Favor = (props) => {
     const accept = async () => {
         setOpen(false)
         try {
-            axios({
+            const reponse = await axios({
                       method: 'put', //you can set what request you want to be
                       url: "http://localhost:3001/api/favors/accept/" + favor.id,
                       headers: {
                         Authorization: 'bearer ' + token
                   }
-                })
-            console.log("accepted")
-            if (favor.accepted) {console.log("you are not the first to accept this favor")}
+            })
+            if (reponse) setMsg({msg : "favor successfully accepted", severity : "success"})
+            else setMsg({msg : "we had a problem while accpeting the favor", severity : "error"})
         }
         catch (error) {console.log(error.response)}
     }
         return (
             <div>
+            {msg ? <Notif message={msg.msg} severity={msg.severity} setMessage={setMsg}/> : <></>}
           <Paper className={classes.paper}>
               <Typography variant="h6" component="h6">
               {favor.title}
