@@ -46,7 +46,7 @@ function timeToGo(date) {
     var hours = diff/3.6e6 | 0;
     var mins  = diff%3.6e6 / 6e4 | 0;
     var secs  = Math.round(diff%6e4 / 1e3);
-    if (Number((hours)) > 24) return Number((hours))%24 + ' days'
+    if (Number((hours)) > 24) return Math.round(Number((hours))/24) + ' days'
     return  (hours) + ' hours'
 }
 
