@@ -43,6 +43,8 @@ const Google = () => {
 
     const responseGoogle = (response) => {
         // || true is for testing
+        // || true is for testing
+        // || true is for testing
       if (response.getBasicProfile().getEmail().includes('@wesleyan.edu') || true){
           axios
             .post("http://localhost:3001/api/googleLogin"
