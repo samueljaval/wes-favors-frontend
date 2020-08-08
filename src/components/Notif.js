@@ -29,7 +29,7 @@ export default function CustomizedSnackbars(props) {
     if (reason === 'clickaway') {
       return;
     }
-    props.setMessage(null)
+    if (props.setMessage) props.setMessage(null)
     setOpen(false);
   };
 
@@ -38,7 +38,7 @@ export default function CustomizedSnackbars(props) {
 
   return (
     <div className={classes.root}>
-      <Snackbar open={true} autoHideDuration={5000} anchorOrigin={{ vertical, horizontal }} key={vertical + horizontal} onClose={handleClose}>
+      <Snackbar open={true} autoHideDuration={6000} anchorOrigin={{ vertical, horizontal }} key={vertical + horizontal} onClose={handleClose}>
         <Alert onClose={handleClose} severity={props.severity}>
             {props.message}
         </Alert>

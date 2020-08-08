@@ -55,7 +55,7 @@ const Google = () => {
         {msg ? <Notif message={msg.msg} severity={msg.severity} setMessage={setMsg}/> : <></>}
         <AppBar style={{ backgroundColor: 'darkred' }} position="fixed" className={classes.appBar}>
           <Toolbar>
-          <Typography style={{fontWeight: 'bold', flex:1 }} variant="h4" noWrap>
+          <Typography style={{fontWeight: 'bold', flex:1 }} variant="h5" noWrap>
                WESFAVORS
           </Typography>
           </Toolbar>

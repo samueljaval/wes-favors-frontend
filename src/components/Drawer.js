@@ -4,7 +4,10 @@ import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import DoneIcon from '@material-ui/icons/Done';
+import PostingDialog from './postingDialog'
+import Chip from '@material-ui/core/Chip';
 import PostingForm from './postingForm'
 import Hidden from '@material-ui/core/Hidden';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -13,6 +16,7 @@ import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SchoolIcon from '@material-ui/icons/School';
+import Avatar from '@material-ui/core/Avatar'
 import PanoramaFishEyeIcon from '@material-ui/icons/PanoramaFishEye';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
@@ -54,11 +58,6 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  avatar: {
-    // margin: theme.spacing(1),
-    color:"black",
-    backgroundColor: "white",
-  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(0),
@@ -72,6 +71,7 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [showing, setShowing] = useState(null)
   const [logged, setLogged] = useState(true)
+  const [posting, setPosting] = useState(false)
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -82,8 +82,8 @@ console.log(showing)
       <div className={classes.toolbar} />
       <Divider />
       <List>
-          <ListItem button onClick={()=>setShowing("post")} key={"Post Favor"}>
-            <ListItemIcon><PostAddIcon /></ListItemIcon>
+          <ListItem button onClick={()=>setPosting(true)} key={"Post Favor"}>
+            <ListItemIcon><PostAddIcon/></ListItemIcon>
             <ListItemText primary={"Post a Favor"} />
           </ListItem>
 
@@ -144,6 +144,8 @@ console.log(showing)
       </div>
   );
 
+const account = (<h4>My Account</h4>)
+
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -160,9 +162,10 @@ console.log(showing)
           >
             <MenuIcon />
           </IconButton>
-          <Typography style={{fontWeight: 'bold', flex:1 }} variant="h4" noWrap>
+          <Typography style={{fontWeight: 'bold', flex:1 }} variant="h5" noWrap>
                WESFAVORS
           </Typography>
+          <Chip label={account} avatar={<Avatar><AccountCircleIcon/></Avatar>} />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -198,8 +201,8 @@ console.log(showing)
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {logged ? (showing === 'post' ? <PostingForm setShowing={setShowing}/> : <Feed category={showing}/>)
-                : <Google/> }
+        {logged ? <Feed category={showing}/> : <Google/> }
+        {posting ? <PostingDialog setPosting={setPosting}/> : <></>}
       </main>
     </div>
   );

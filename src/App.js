@@ -1,7 +1,9 @@
-import React from 'react'
+import React , {useState} from 'react'
 import PostingForm from './components/postingForm'
 import Drawer from './components/Drawer'
 import Google from './components/googleLogin'
+import { Offline, Online } from "react-detect-offline";
+import Notif from './components/Notif'
 import {
   Switch,
   Route,
@@ -10,6 +12,7 @@ import {
 const App = () => {
   return (
     <div>
+    <Offline><Notif message={"check your internet connection"} setMessage={null} severity={"error"}/></Offline>
     <Switch>
         <Route path = "/main">
         <Drawer/>

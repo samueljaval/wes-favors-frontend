@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,7 +12,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import Notif from './Notif'
+import Grid from '@material-ui/core/Grid'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,7 +36,6 @@ const Favor = (props) => {
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMmRjOTI5MjdhNGMwMmYyOTBiMzI0OCIsImlhdCI6MTU5NjgzNjEzN30.C8dDJfxKa4tdQjkANxUhuiOfyDVEp2FQ1VBCP1ado_4"
     const favor = props.favor
     const [open, setOpen] = React.useState(false)
-    const [msg, setMsg] = React.useState(null)
 
     const handleClickOpen = () => {
     setOpen(true);
@@ -54,28 +55,43 @@ const Favor = (props) => {
                         Authorization: 'bearer ' + token
                   }
             })
-            if (reponse) setMsg({msg : "favor successfully accepted", severity : "success"})
-            else setMsg({msg : "we had a problem while accpeting the favor", severity : "error"})
+            if (reponse) {
+                props.setFavors(props.favors.filter(f => f.id != favor.id))
+                props.setMsg({msg : "favor successfully accepted", severity : "success"})
+            }
+            else props.setMsg({msg : "we had a problem while accepting the favor", severity : "error"})
         }
         catch (error) {console.log(error.response)}
     }
+
         return (
             <div>
-            {msg ? <Notif message={msg.msg} severity={msg.severity} setMessage={setMsg}/> : <></>}
           <Paper className={classes.paper}>
+          <Grid container justify='space-between'>
+          <Grid item>
               <Typography variant="h6" component="h6">
-              {favor.title}
-            </Typography>
+                          {favor.title}
+                          </Typography>
+        </Grid>
+        <Grid item>
+            <Grid container><Grid item><Chip style={{backgroundColor:'lightpink'}} size="small" label={favor.category}/></Grid>
+            <Grid item><Chip size="small" label={<div>{favor.posted_date_time}<br/></div>}/></Grid></Grid>
+        </Grid>
+        </Grid>
               <Typography variant="body2" className={classes.pos} color="textSecondary">
                 Details : {favor.details} <br/>
-                {favor.price ? `Offer : ${favor.price}$` : <></>}
-                {favor.price ? <br/> : <></>}
-                Posted : {favor.posted_date_time} <br/>
                 {favor.expiration_date_time ? `Expiration : ${favor.expiration_date_time}`  : <></>}
               </Typography>
              <br/>
-            {props.showButton ? <Button style={{color:"red"}} onClick={handleClickOpen} variant="contained"
+             <Grid container spacing = {2}>
+             <Grid item>
+            {!favor.accepted ? <Button style={{color:"red"}} onClick={handleClickOpen} variant="contained"
             size="small">I can do it</Button> : <></>}
+            </Grid>
+            <Grid item>
+            {favor.price ? <Chip label={<div style={{fontWeight:'bold'}}>Offer : ${favor.price}</div>}/> : <></>}
+            </Grid>
+            </Grid>
             <Dialog
                 open={open}
                 TransitionComponent={Transition}

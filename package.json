@@ -16,6 +16,7 @@
     "date-fns": "^2.15.0",
     "material-ui-phone-number": "^2.2.6",
     "react": "^16.13.1",
+    "react-detect-offline": "^2.4.0",
     "react-dom": "^16.13.1",
     "react-google-login": "^5.1.21",
     "react-icons": "^3.10.0",

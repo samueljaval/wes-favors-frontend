@@ -8,6 +8,8 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
+import Notif from './Notif'
+
 
 const Feed = ({category}) => {
     // this hard coded token is just for testing
@@ -23,6 +25,8 @@ const Feed = ({category}) => {
       }, [])
 
     const [favors, setFavors] = useState()
+    const [msg, setMsg] = useState(null)
+
     console.log(favors)
     const useStyles = makeStyles((theme) => ({
       paper: {
@@ -40,6 +44,7 @@ const Feed = ({category}) => {
 
     return (
         <div>
+        {msg ?  <Notif setMessage = {setMsg} message={msg.msg} severity={msg.severity}/> : <></>}
         <Container component="main">
         <CssBaseline />
         <div className={classes.paper}>
@@ -48,7 +53,7 @@ const Feed = ({category}) => {
             <Avatar className={classes.avatar}><ListAltIcon/></Avatar>
             </Grid>
             <Grid item>
-            <Typography component="h2" variant="h5">
+            <Typography component="h2" variant="h6">
               {category ? category.toUpperCase(): "ALL CATEGORIES"}
             </Typography>
             </Grid>
@@ -58,17 +63,17 @@ const Feed = ({category}) => {
                     favors
                         .filter(favor => !favor.accepted).reverse()
                         .filter(favor => favor.category === category)
-                        .map(favor => <Favor showButton={true} key={favor.id} favor={favor}/>)
+                        .map(favor => <Favor setMsg={setMsg} favors={favors} setFavors={setFavors} key={favor.id} favor={favor}/>)
                     :
                     (
                         (category === "Completed") ?
                         favors
                             .filter(favor => favor.accepted).reverse()
-                            .map(favor => <Favor showButton={false} key={favor.id} favor={favor}/>)
+                            .map(favor => <Favor setMsg={setMsg} favors={favors} setFavors={setFavors} key={favor.id} favor={favor}/>)
                         :
                         favors
                             .filter(favor => !favor.accepted).reverse()
-                            .map(favor => <Favor showButton={true} key={favor.id} favor={favor}/>)
+                            .map(favor => <Favor setMsg={setMsg} favors={favors} setFavors={setFavors} key={favor.id} favor={favor}/>)
                     )
                     : <></>}
         </div>
