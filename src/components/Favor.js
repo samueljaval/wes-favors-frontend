@@ -4,14 +4,20 @@ import Paper from '@material-ui/core/Paper';
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import CategoryIcon from '@material-ui/icons/Category';
+import TimerIcon from '@material-ui/icons/Timer';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
+import HomeIcon from '@material-ui/icons/Home';
+import SendIcon from '@material-ui/icons/Send';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import Grid from '@material-ui/core/Grid'
 
 
@@ -21,12 +27,28 @@ const useStyles = makeStyles((theme) => ({
     margin: `${theme.spacing(1)}px auto`,
     padding: theme.spacing(2),
   },
+  icon: {
+    marginRight: theme.spacing(0.5),
+    width: 20,
+    height: 20,
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+
+function timeToGo(date) {
+    const d = new Date(date)
+    var diff = d - new Date();
+    diff = Math.abs(diff);
+    var hours = diff/3.6e6 | 0;
+    var mins  = diff%3.6e6 / 6e4 | 0;
+    var secs  = Math.round(diff%6e4 / 1e3);
+    if (Number((hours)) > 24) return Number((hours))%24 + ' days'
+    return  (hours) + ' hours'
+}
 
 
 const Favor = (props) => {
@@ -64,23 +86,22 @@ const Favor = (props) => {
         catch (error) {console.log(error.response)}
     }
 
+    const getNiceDate = (posted_date) => {
+        const posted = new Date(favor.posted_date_time)
+        return `${posted.getMonth()}/${posted.getDate()} at ${posted.getHours()}:${posted.getMinutes()}`
+    }
+
         return (
             <div>
           <Paper className={classes.paper}>
-          <Grid container justify='space-between'>
-          <Grid item>
+          <Grid container><Grid item><Chip icon={<CategoryIcon/>}  size="small" label={favor.category}/></Grid>
+          <Grid item><Chip icon={<GetAppIcon/>} size="small" label={<div>{getNiceDate(favor.posted_date_time)}<br/></div>}/></Grid>
+          {favor.expiration_date_time ? <Grid item><Chip icon={<TimerIcon/>} size="small" label={<div>{timeToGo(favor.expiration_date_time)}<br/></div>}/></Grid> : <></>}</Grid>
               <Typography variant="h6" component="h6">
                           {favor.title}
                           </Typography>
-        </Grid>
-        <Grid item>
-            <Grid container><Grid item><Chip style={{backgroundColor:'lightpink'}} size="small" label={favor.category}/></Grid>
-            <Grid item><Chip size="small" label={<div>{favor.posted_date_time}<br/></div>}/></Grid></Grid>
-        </Grid>
-        </Grid>
               <Typography variant="body2" className={classes.pos} color="textSecondary">
-                Details : {favor.details} <br/>
-                {favor.expiration_date_time ? `Expiration : ${favor.expiration_date_time}`  : <></>}
+                Details : {favor.details}
               </Typography>
              <br/>
              <Grid container spacing = {2}>

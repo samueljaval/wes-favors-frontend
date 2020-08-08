@@ -74,7 +74,7 @@ const Google = () => {
           />
         <br/><br/><br/>
         <Typography>
-             here's how it works
+             here is how it works
         </Typography>
         <List className={classes.root}>
       <ListItem>
