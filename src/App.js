@@ -1,8 +1,9 @@
-import React from 'react'
-import LoginForm from './components/loginForm'
-import SignUpForm from './components/signupForm'
-import Feed from './components/feed'
+import React , {useState} from 'react'
 import PostingForm from './components/postingForm'
+import Drawer from './components/Drawer'
+import Google from './components/googleLogin'
+import { Offline, Online } from "react-detect-offline";
+import Notif from './components/Notif'
 import {
   Switch,
   Route,
@@ -11,21 +12,13 @@ import {
 const App = () => {
   return (
     <div>
+    <Offline><Notif message={"check your internet connection"} setMessage={null} severity={"error"}/></Offline>
     <Switch>
-        <Route path = "/signup">
-        <SignUpForm/>
-        </Route>
-        <Route path = "/login">
-        <LoginForm/>
-        </Route>
-        <Route path = "/feed">
-        <Feed/>
-        </Route>
-        <Route path = "/posting">
-        <PostingForm/>
+        <Route path = "/main">
+        <Drawer/>
         </Route>
         <Route path = "/">
-        <div> go to /login or /signup in the url (development) </div>
+        <Google/>
         </Route>
     </Switch>
     </div>

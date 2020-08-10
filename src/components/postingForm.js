@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
-import signupService from '../services/signup'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import axios from 'axios'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import Typography from '@material-ui/core/Typography'
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Notif from './Notif'
 import { makeStyles } from '@material-ui/core/styles'
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
 import Container from '@material-ui/core/Container'
+import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DateFnsUtils from '@date-io/date-fns';
 import postingService from '../services/posting'
@@ -22,30 +24,34 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Checkbox from '@material-ui/core/Checkbox';
-import {
-  Redirect,Link
-} from "react-router-dom"
 
 
-
-const Posting = () => {
+const Posting = (props) => {
 
     const [title, setTitle] = useState(null)
     const [details, setDetails] = useState(null)
     const [price, setPrice] = useState(null)
     const [expires, setExpires] = useState(null)
     const [location, setLocation] = useState(null)
-    const [done, setDone] = useState(false)
+    const [category, setCategory] = useState("Random")
     const [msg, setMsg] = useState(null)
     const [exp, setExp] = useState(false)
     const [free, setFree] = useState(false)
+    const [loc, setLoc] = useState(false)
+    const [cat, setCat] = useState(false)
 
     const useStyles = makeStyles((theme) => ({
       paper: {
-        marginTop: theme.spacing(3),
+        marginTop: theme.spacing(2),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+      },
+      formControl: {
+          marginTop: theme.spacing(2),
+          marginBottom:theme.spacing(1),
+          margin: theme.spacing(0),
+          width: '97%'
       },
       avatar: {
         margin: theme.spacing(1),
@@ -64,18 +70,24 @@ const Posting = () => {
         if (exp) setExpires(date)
     }
 
+    const goodPrice = (price) => {
+        if (price) return price.split(",").join("")
+        else return null
+    }
+
+
     const handlePosting = async (event) => {
         event.preventDefault()
-
         const response = await postingService.posting({ title,
                 details,
                 location,
-                price,
+                category,
+                price : goodPrice(price),
                 expiration_date_time : expires})
         // need to find a way to keep user logged in here, maybe user cookies
         // what the course did was not good practice and apparently not safe
         if (response.status === 201) {
-            setDone(true)
+            props.setShowing(null)
         }
         else {setMsg(response.data.error)}
     }
@@ -83,15 +95,11 @@ const Posting = () => {
     const classes = useStyles()
     return (
         <div>
-        {done ? <Redirect to = "/feed"/> : <></>}
-        {msg ?  <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          <strong>{msg}</strong>
-        </Alert> : <></>}
+        {msg ?  <Notif setMessage = {setMsg} message={msg} severity="error"/> : <></>}
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
-            <Avatar className={classes.avatar}>W</Avatar>
+            <Avatar className={classes.avatar}><PostAddIcon/></Avatar>
             <Typography component="h1" variant="h4">
               Posting a Favor
             </Typography>
@@ -111,21 +119,40 @@ const Posting = () => {
                 margin="normal"
                 label="Multiline"
                 multiline
-                rows={3}
+                rows={2}
                 required
                 fullWidth
                 label="Details"
                 id="details"
                 onChange={({ target }) => setDetails(target.value)}
               />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                label="Location (not required)"
-                id="location"
-                onChange={({ target }) => setLocation(target.value)}
-              />
+              <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={cat}
+                      onChange={()=>setCat(!cat)}
+                      color="primary"
+                    />
+                  }
+                  label="add a category (default = Random)"
+                  />
+                { cat ? <FormControl variant="outlined" className={classes.formControl}>
+                      <InputLabel>Category</InputLabel>
+                      <Select
+                        value={category}
+                        onChange={({ target }) => setCategory(target.value)}
+                        label="Random"
+                      >
+                        <MenuItem value="Random">
+                          <em>Random</em>
+                        </MenuItem>
+                        <MenuItem value={"Rides"}>Rides</MenuItem>
+                        <MenuItem value={"Academics"}>Academics</MenuItem>
+                        <MenuItem value={"Errands"}>Errands</MenuItem>
+                        <MenuItem value={"COVID Related"}>COVID Related</MenuItem>
+                      </Select>
+                </FormControl>
+                : <></>}
               <FormControlLabel
                   control={
                     <Checkbox
@@ -136,12 +163,33 @@ const Posting = () => {
                   }
                   label="add how much you can pay (not required)"
                   />
-              {free ? <TextField
+                  {free ? <CurrencyTextField
+                        label="Amount"
+                        variant='outlined'
+                        currencySymbol="$"
+                        minimumValue="0"
+                        outputFormat="number"
+                        decimalCharacter="."
+                        digitGroupSeparator=","
+                        onChange={({ target }) => setPrice(target.value)}
+                    /> : <></>}
+              <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={loc}
+                      onChange={()=>setLoc(!loc)}
+                      color="primary"
+                    />
+                  }
+                  label="add a location (not required)"
+                  />
+              {loc ? <TextField
                 variant="outlined"
                 margin="normal"
-                label="Price"
-                id="price"
-                onChange={({ target }) => setPrice(target.value)}
+                fullWidth
+                label="Location (not required)"
+                id="location"
+                onChange={({ target }) => setLocation(target.value)}
               /> : <></>}
               <FormControlLabel
                   control={
@@ -193,15 +241,7 @@ const Posting = () => {
                 Post Favor
               </Button>
             </form>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={() => setDone(true)}
-            >
-              Cancel
-            </Button>
-            <br></br><br></br><br></br><br></br>
+            <br></br>
           </div>
         </Container>
         </div>

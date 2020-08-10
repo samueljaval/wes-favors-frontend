@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import Button from '@material-ui/core/Button'
 import axios from 'axios'
 import Favor from './Favor'
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd'
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Redirect,Link
-} from "react-router-dom"
+import Notif from './Notif'
 
-const Feed = () => {
 
+const Feed = ({category}) => {
     // this hard coded token is just for testing
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMjE2Y2Y0ODA2ODZhNmZlYzQ1ZTdkMSIsImlhdCI6MTU5NjAzNTAzOH0.xMcJ0Cxw38bgjmPzhtTS0qYGplhMCMZTWhEa50KKUT8"
-    // const token = useSelector(store => store.user.token)
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMmRjOTI5MjdhNGMwMmYyOTBiMzI0OCIsImlhdCI6MTU5NjgzNjEzN30.C8dDJfxKa4tdQjkANxUhuiOfyDVEp2FQ1VBCP1ado_4"
 
     useEffect(() => {
       axios
@@ -29,17 +24,18 @@ const Feed = () => {
       }, [])
 
     const [favors, setFavors] = useState()
-    const [posting, setPosting] = useState(false)
+    const [msg, setMsg] = useState(null)
 
+    console.log(favors)
     const useStyles = makeStyles((theme) => ({
       paper: {
-        marginTop: theme.spacing(3),
-        display: 'flex',
+        marginTop: theme.spacing(2),
+        // display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
     avatar: {
-      margin: theme.spacing(1),
+      // margin: theme.spacing(1),
       backgroundColor: "darkred",
     }}))
 
@@ -47,20 +43,38 @@ const Feed = () => {
 
     return (
         <div>
-        <Container component="main" >
+        {msg ?  <Notif setMessage = {setMsg} message={msg.msg} severity={msg.severity}/> : <></>}
+        <Container component="main">
         <CssBaseline />
-        {posting ? <Redirect to = "/posting"/> : <></>}
         <div className={classes.paper}>
-        <Avatar className={classes.avatar}>W</Avatar>
-          <Typography component="h1" variant="h4">
-            WESFAVORS
-          </Typography>
+        <Grid container spacing={1}>
+            <Grid item>
+            <Avatar className={classes.avatar}><ListAltIcon/></Avatar>
+            </Grid>
+            <Grid item>
+            <Typography component="h2" variant="h6">
+              {category ? category.toUpperCase(): "ALL CATEGORIES"}
+            </Typography>
+            </Grid>
+        </Grid>
         <div>
-        <br></br>
-        <Button style={{color:"red", fontWeight: "bold"}} onClick={() => setPosting(true)} variant="contained"
-        size="small">Post A Favor</Button>
-        <br></br><br></br>
-        {favors ? favors.map(favor => <Favor key={favor.id} favor={favor}/>) : <></>}
+        {favors ? (category && category !== "Completed") ?
+                    favors
+                        .filter(favor => !favor.accepted).reverse()
+                        .filter(favor => favor.category === category)
+                        .map(favor => <Favor setMsg={setMsg} favors={favors} setFavors={setFavors} key={favor.id} favor={favor}/>)
+                    :
+                    (
+                        (category === "Completed") ?
+                        favors
+                            .filter(favor => favor.accepted).reverse()
+                            .map(favor => <Favor setMsg={setMsg} favors={favors} setFavors={setFavors} key={favor.id} favor={favor}/>)
+                        :
+                        favors
+                            .filter(favor => !favor.accepted).reverse()
+                            .map(favor => <Favor setMsg={setMsg} favors={favors} setFavors={setFavors} key={favor.id} favor={favor}/>)
+                    )
+                    : <></>}
         </div>
         </div>
         </Container>
