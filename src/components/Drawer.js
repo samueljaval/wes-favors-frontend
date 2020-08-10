@@ -10,6 +10,7 @@ import PostingDialog from './postingDialog'
 import Chip from '@material-ui/core/Chip';
 import PostingForm from './postingForm'
 import Hidden from '@material-ui/core/Hidden';
+import Help from './Help'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import IconButton from '@material-ui/core/IconButton';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
@@ -72,6 +73,7 @@ function ResponsiveDrawer(props) {
   const [showing, setShowing] = useState(null)
   const [logged, setLogged] = useState(true)
   const [posting, setPosting] = useState(false)
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -201,7 +203,7 @@ const account = (<h4>My Account</h4>)
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {logged ? <Feed category={showing}/> : <Google/> }
+        {logged ? (showing === 'help' ? <Help/>: <Feed category={showing}/>) : <Google/> }
         {posting ? <PostingDialog setPosting={setPosting}/> : <></>}
       </main>
     </div>
