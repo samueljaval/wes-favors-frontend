@@ -3,6 +3,8 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import AppBar from '@material-ui/core/AppBar';
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux'
+import { login } from '../reducers/userReducer'
 import Toolbar from '@material-ui/core/Toolbar';
 import SendIcon from '@material-ui/icons/Send';
 import ForumIcon from '@material-ui/icons/Forum';
@@ -16,12 +18,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import DoneIcon from '@material-ui/icons/Done';
+import {
+  Redirect,Link
+} from "react-router-dom"
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT
 
 const Google = () => {
 
     const [msg, setMsg] = useState(null)
+    const [logging, setLogging] = useState(false)
+    const dispatch = useDispatch()
 
     const useStyles = makeStyles((theme) => ({
       paper: {
@@ -41,20 +48,26 @@ const Google = () => {
 
     const classes = useStyles()
 
-    const responseGoogle = (response) => {
+    const responseGoogle = async (response) => {
         // || true is for testing
         // || true is for testing
         // || true is for testing
       if (response.getBasicProfile().getEmail().includes('@wesleyan.edu') || true){
-          axios
+          const tokenResponse =
+            await axios
             .post("http://localhost:3001/api/googleLogin"
                     , {tokenId : response.tokenId})
+          if (tokenResponse) {
+              dispatch(login(tokenResponse.data.token))
+              setLogging(true)
+          }
       }
       else setMsg({msg :"please use a wesleyan.edu google account", severity:"error"})
     }
 
     return (
         <div>
+        {logging ? <Redirect to = "/main"/> : <></>}
         {msg ? <Notif message={msg.msg} severity={msg.severity} setMessage={setMsg}/> : <></>}
         <AppBar style={{ backgroundColor: 'darkred' }} position="fixed" className={classes.appBar}>
           <Toolbar>

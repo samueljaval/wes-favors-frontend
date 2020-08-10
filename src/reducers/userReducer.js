@@ -9,10 +9,10 @@ const userReducer = (state = initial, action) => {
     }
 }
 
-export const login = (username, name, token) => {
+export const login = (token) => {
     return {
         type : "LOGGINGIN",
-        data : {username,name,token}
+        data : {token}
     }
 }
 

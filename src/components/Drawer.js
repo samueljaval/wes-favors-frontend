@@ -2,6 +2,7 @@ import React ,{ useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { useDispatch, useSelector } from 'react-redux'
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -31,6 +32,9 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {
+  Redirect,Link
+} from "react-router-dom"
 import Feed from './feed'
 
 const drawerWidth = 240;
@@ -73,12 +77,16 @@ function ResponsiveDrawer(props) {
   const [showing, setShowing] = useState(null)
   const [logged, setLogged] = useState(true)
   const [posting, setPosting] = useState(false)
+  const [logging, setLogging] = useState(false)
+
+  const token = useSelector(store => store.user.token)
+  // to not let user access main page if not logged in 
+  // if (!token && logging === false) {setLogging(true)}
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-console.log(showing)
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -152,6 +160,7 @@ const account = (<h4>My Account</h4>)
 
   return (
     <div className={classes.root}>
+    {logging ? <Redirect to = "/"/> : <></>}
       <CssBaseline />
       <AppBar style={{ backgroundColor: 'darkred' }} position="fixed" className={classes.appBar}>
         <Toolbar>
