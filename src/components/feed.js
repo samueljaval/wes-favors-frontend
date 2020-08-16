@@ -10,10 +10,9 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import Notif from './Notif'
 
-
 const Feed = ({category}) => {
     // this hard coded token is just for testing
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMmRjOTI5MjdhNGMwMmYyOTBiMzI0OCIsImlhdCI6MTU5NjgzNjEzN30.C8dDJfxKa4tdQjkANxUhuiOfyDVEp2FQ1VBCP1ado_4"
+    const token = process.env.REACT_APP_TOKEN
 
     useEffect(() => {
       axios

@@ -8,20 +8,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import Grid from '@material-ui/core/Grid'
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import Typography from '@material-ui/core/Typography'
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Notif from './Notif'
-import { makeStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
-import { Alert, AlertTitle } from '@material-ui/lab'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DateFnsUtils from '@date-io/date-fns';
 import postingService from '../services/posting'
@@ -49,9 +42,9 @@ export default function FormDialog({setPosting, setShowing}) {
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setPosting(false)
