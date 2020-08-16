@@ -11,7 +11,6 @@ import Avatar from '@material-ui/core/Avatar';
 import DoneIcon from '@material-ui/icons/Done';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 
 const Help = () => {
@@ -28,12 +27,9 @@ const Help = () => {
     maxWidth: 360,
     marginLeft: 20
   },
-  avatar: {
-    backgroundColor: "darkred",
-},
-bottom: {
-    marginBottom: theme.spacing(3),
-}
+    bottom: {
+        marginBottom: theme.spacing(3),
+    }
     }))
 
     const classes = useStyles()
@@ -42,16 +38,14 @@ bottom: {
         <div>
             <List className={classes.paper}>
                 <ListItem className={classes.bottom}>
-                    <Grid container spacing={1}>
-                        <Grid item>
-                        <Avatar className={classes.avatar}><ListAltIcon/></Avatar>
-                        </Grid>
-                        <Grid item>
+                    <ListItemAvatar>
+                      <Avatar style={{backgroundColor:'darkred'}}>
+                        <ListAltIcon/>
+                      </Avatar>
+                    </ListItemAvatar>
                         <Typography component="h2" variant="h6">
                           HELP/ABOUT
                         </Typography>
-                        </Grid>
-                    </Grid>
                 </ListItem>
             <ListItem>
               <ListItemText primary="We hope you're enjoying WesFavors, an app created to allow Wesleyan students to post and accept favors from other students."/>
