@@ -19,7 +19,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import DoneIcon from '@material-ui/icons/Done';
 import {
-  Redirect,Link
+  Redirect
 } from "react-router-dom"
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT
@@ -49,9 +49,7 @@ const Google = () => {
     const classes = useStyles()
 
     const responseGoogle = async (response) => {
-        // || true is for testing
-        // || true is for testing
-        // || true is for testing
+        // || true is just for testing
       if (response.getBasicProfile().getEmail().includes('@wesleyan.edu') || true){
           const tokenResponse =
             await axios

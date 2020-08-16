@@ -2,7 +2,9 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3001/api/favors'
 
 const posting = async (info) => {
-	const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMmRjOTI5MjdhNGMwMmYyOTBiMzI0OCIsImlhdCI6MTU5NjgzNjEzN30.C8dDJfxKa4tdQjkANxUhuiOfyDVEp2FQ1VBCP1ado_4"
+    // hardcoded just for testing
+	const token = process.env.REACT_APP_TOKEN
+
 	try {
 		const response = await axios.post(baseUrl, info, {headers: {Authorization: 'bearer ' + token}})
 		return response

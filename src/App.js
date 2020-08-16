@@ -1,8 +1,7 @@
-import React , {useState} from 'react'
-import PostingForm from './components/postingForm'
+import React from 'react'
 import Drawer from './components/Drawer'
 import Google from './components/googleLogin'
-import { Offline, Online } from "react-detect-offline";
+import { Offline } from "react-detect-offline";
 import Notif from './components/Notif'
 import {
   Switch,

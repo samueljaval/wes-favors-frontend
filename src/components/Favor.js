@@ -1,16 +1,12 @@
 import React from 'react'
 import axios from 'axios'
 import Paper from '@material-ui/core/Paper';
-import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
 import CategoryIcon from '@material-ui/icons/Category';
 import TimerIcon from '@material-ui/icons/Timer';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
-import HomeIcon from '@material-ui/icons/Home';
-import SendIcon from '@material-ui/icons/Send';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -44,8 +40,8 @@ function timeToGo(date) {
     var diff = d - new Date();
     diff = Math.abs(diff);
     var hours = diff/3.6e6 | 0;
-    var mins  = diff%3.6e6 / 6e4 | 0;
-    var secs  = Math.round(diff%6e4 / 1e3);
+    // var mins  = diff%3.6e6 / 6e4 | 0;
+    // var secs  = Math.round(diff%6e4 / 1e3);
     if (Number((hours)) > 24) return Math.round(Number((hours))/24) + ' days'
     return  (hours) + ' hours'
 }
@@ -55,7 +51,7 @@ const Favor = (props) => {
     const classes = useStyles();
     // const token = useSelector(store => store.user.token)
     // this hard coded token is just for testing
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indlc2Zhdm9yc2FwcEBnbWFpbC5jb20iLCJpZCI6IjVmMmRjOTI5MjdhNGMwMmYyOTBiMzI0OCIsImlhdCI6MTU5NjgzNjEzN30.C8dDJfxKa4tdQjkANxUhuiOfyDVEp2FQ1VBCP1ado_4"
+    const token = process.env.REACT_APP_TOKEN
     const favor = props.favor
     const [open, setOpen] = React.useState(false)
 
