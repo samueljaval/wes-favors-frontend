@@ -77,7 +77,7 @@ function ResponsiveDrawer(props) {
   const [posting, setPosting] = useState(false)
   const [logging, setLogging] = useState(false)
 
-  // to not let user access main page if not logged in
+  // don't let user access main page if not logged in
   const token = window.localStorage.getItem('userToken')
   if (!token && logging === false) {setLogging(true)}
 
