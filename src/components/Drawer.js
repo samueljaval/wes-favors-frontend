@@ -1,8 +1,7 @@
-import React ,{ useState } from 'react';
+import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import { useSelector } from 'react-redux'
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -69,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const { window } = props;
+  const { window2 } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -78,9 +77,9 @@ function ResponsiveDrawer(props) {
   const [posting, setPosting] = useState(false)
   const [logging, setLogging] = useState(false)
 
-  // const token = useSelector(store => store.user.token)
   // to not let user access main page if not logged in
-  // if (!token && logging === false) {setLogging(true)}
+  const token = window.localStorage.getItem('userToken')
+  if (!token && logging === false) {setLogging(true)}
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -155,7 +154,7 @@ function ResponsiveDrawer(props) {
 
 const account = (<h4>My Account</h4>)
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = window2 !== undefined ? () => window2().document.body : undefined;
 
   return (
     <div className={classes.root}>

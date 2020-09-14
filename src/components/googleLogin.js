@@ -52,11 +52,11 @@ const Google = () => {
         // || true is just for testing
       if (response.getBasicProfile().getEmail().includes('@wesleyan.edu') || true){
           const tokenResponse =
-            await axios
-            .post("http://localhost:3001/api/googleLogin"
-                    , {tokenId : response.tokenId})
+            await axios.post("http://localhost:3001/api/googleLogin", {tokenId : response.tokenId})
           if (tokenResponse) {
-              dispatch(login(tokenResponse.data.token))
+              const token = tokenResponse.data.token
+              dispatch(login(token))
+              window.localStorage.setItem('userToken', token)
               setLogging(true)
           }
       }

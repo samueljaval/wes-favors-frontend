@@ -11,8 +11,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import Notif from './Notif'
 
 const Feed = ({category}) => {
+
     // this hard coded token is just for testing
-    const token = process.env.REACT_APP_TOKEN
+    // const token = process.env.REACT_APP_TOKEN
+    const token = window.localStorage.getItem('userToken')
 
     useEffect(() => {
       axios
@@ -20,12 +22,12 @@ const Feed = ({category}) => {
         .then(response => {
           setFavors(response.data)
         })
-      }, [])
+      }, [token])
 
     const [favors, setFavors] = useState()
     const [msg, setMsg] = useState(null)
 
-    console.log(favors)
+    // console.log(favors)
     const useStyles = makeStyles((theme) => ({
       paper: {
         marginTop: theme.spacing(2),
