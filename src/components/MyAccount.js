@@ -30,9 +30,7 @@ const MyAccount = () => {
         alignItems: 'center',
     },
     root: {
-    width: '100%',
-    maxWidth: 360,
-    marginLeft: 20
+    marginLeft: 30
   },
     bottom: {
         marginBottom: theme.spacing(3),
@@ -70,9 +68,8 @@ const MyAccount = () => {
                 </ListItem>
         </List>
         <Button className={classes.root} variant="contained" onClick={handleLogout}> Logout </Button>
-        {/* <Button variant="contained" color="secondary">
-      Secondary
-    </Button> */}
+        <br/><br/><br/>
+        <Button className={classes.root} variant="contained" color="secondary">DELETE ACCOUNT</Button>
         </div>
     )
 

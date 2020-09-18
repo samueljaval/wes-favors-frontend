@@ -57,6 +57,7 @@ const Google = () => {
               const token = tokenResponse.data.token
               dispatch(login(token))
               window.localStorage.setItem('userToken', token)
+
               setLogging(true)
           }
       }
