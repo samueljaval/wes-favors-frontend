@@ -34,6 +34,8 @@ import {
   Redirect
 } from "react-router-dom"
 import Feed from './feed'
+import MyAccount from './MyAccount'
+
 
 const drawerWidth = 240;
 
@@ -56,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  // necessary for content to be below app bar.
+  // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
@@ -174,7 +176,7 @@ const account = (<h4>My Account</h4>)
           <Typography style={{fontWeight: 'bold', flex:1 }} variant="h5" noWrap>
                WESFAVORS
           </Typography>
-          <Chip label={account} avatar={<Avatar><AccountCircleIcon/></Avatar>} />
+          <Chip onClick={() => setShowing('myAccount')} label={account} avatar={<Avatar><AccountCircleIcon/></Avatar>} />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -210,7 +212,7 @@ const account = (<h4>My Account</h4>)
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {logged ? (showing === 'help' ? <Help/>: <Feed category={showing}/>) : <Google/> }
+        {logged ? (showing === 'help' ? <Help/>: (showing ==='myAccount' ? <MyAccount/>: <Feed category={showing}/>)) : <Google/> }
         {posting ? <PostingDialog setPosting={setPosting}/> : <></>}
       </main>
     </div>

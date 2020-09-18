@@ -4,6 +4,8 @@ const userReducer = (state = initial, action) => {
     switch (action.type){
         case "LOGGINGIN":
             return action.data
+        // case "LOGGINGOUT":
+        //     return null
         default :
             return state
     }
@@ -15,5 +17,11 @@ export const login = (token) => {
         data : {token}
     }
 }
+
+// export const logout = (token) => {
+//     return {
+//         type : "LOGGINGOUT"
+//     }
+// }
 
 export default userReducer
