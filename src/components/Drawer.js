@@ -1,8 +1,7 @@
-import React ,{ useState } from 'react';
+import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import { useSelector } from 'react-redux'
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -35,6 +34,8 @@ import {
   Redirect
 } from "react-router-dom"
 import Feed from './feed'
+import MyAccount from './MyAccount'
+
 
 const drawerWidth = 240;
 
@@ -69,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const { window } = props;
+  const { window2 } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -78,9 +79,9 @@ function ResponsiveDrawer(props) {
   const [posting, setPosting] = useState(false)
   const [logging, setLogging] = useState(false)
 
-  // const token = useSelector(store => store.user.token)
-  // to not let user access main page if not logged in
-  // if (!token && logging === false) {setLogging(true)}
+  // don't let user access main page if not logged in
+  const token = window.localStorage.getItem('userToken')
+  if (!token && logging === false) {setLogging(true)}
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -155,7 +156,7 @@ function ResponsiveDrawer(props) {
 
 const account = (<h4>My Account</h4>)
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = window2 !== undefined ? () => window2().document.body : undefined;
 
   return (
     <div className={classes.root}>
@@ -175,7 +176,7 @@ const account = (<h4>My Account</h4>)
           <Typography style={{fontWeight: 'bold', flex:1 }} variant="h5" noWrap>
                WESFAVORS
           </Typography>
-          <Chip label={account} avatar={<Avatar><AccountCircleIcon/></Avatar>} />
+          <Chip onClick={() => setShowing('myAccount')} label={account} avatar={<Avatar><AccountCircleIcon/></Avatar>} />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -211,7 +212,7 @@ const account = (<h4>My Account</h4>)
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {logged ? (showing === 'help' ? <Help/>: <Feed category={showing}/>) : <Google/> }
+        {logged ? (showing === 'help' ? <Help/>: (showing ==='myAccount' ? <MyAccount/>: <Feed category={showing}/>)) : <Google/> }
         {posting ? <PostingDialog setPosting={setPosting}/> : <></>}
       </main>
     </div>

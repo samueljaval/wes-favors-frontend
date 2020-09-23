@@ -104,7 +104,7 @@ export default function FormDialog({setPosting, setShowing}) {
             rows={2}
             required
             fullWidth
-            label="Details"
+            // label="Details"
             id="details"
             onChange={({ target }) => setDetails(target.value)}
           />
